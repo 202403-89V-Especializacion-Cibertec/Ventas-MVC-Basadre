@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SistemaVentas.Dominio.Modelos.Categoria>
+
+<h3>Lista de categorias</h3>
+
+
+<a asp-controller="categoria" asp-action="registrar" class="btn btn-primary">Nuevo</a>
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.CategoriaNueva))
+{
+    <div class="alert alert-success" role="alert">
+       <span>Categoria Nueva: </span> @ViewBag.CategoriaNueva
+    </div>
+}
+
+<table class="table" >
+    <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-controller="categoria" asp-action="Modificar" asp-route-codigo="@item.IdCategoria">
+                    @item.IdCategoria
+                </a>
+                
+            </td>
+            <td>
+                @item.Nombre
+            </td>
+        </tr>
+    }
+</table>

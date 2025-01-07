@@ -1,0 +1,15 @@
+﻿
+@if (!String.IsNullOrEmpty(@ViewBag.MensajeValidacion))
+{
+<div class="alert alert-danger" role="alert">
+    @ViewBag.MensajeValidacion
+</div>
+}
+
+<form method="post" asp-controller="categoria" asp-action="registrar">
+    <div>
+        <input name="nombre" class="form-control" />
+    </div>
+
+    <button type="submit"  class="btn btn-success">Grabar</button>
+</form>

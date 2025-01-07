@@ -1,0 +1,18 @@
+﻿@model SistemaVentas.Web.MVC.Models.CategoriaViewModel
+
+@if (!String.IsNullOrEmpty(@ViewBag.MensajeValidacion))
+{
+<div class="alert alert-danger" role="alert">
+    @ViewBag.MensajeValidacion
+</div>
+}
+
+<form method="post" asp-controller="categoria" asp-action="modificar">
+    <div>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="Nombre" class="form-control" />
+      @*   <input id="nombre" name="nombre" value="@Model.Nombre" /> *@
+    </div>
+
+    <button type="submit" class="btn btn-success">Grabar</button>
+</form>
