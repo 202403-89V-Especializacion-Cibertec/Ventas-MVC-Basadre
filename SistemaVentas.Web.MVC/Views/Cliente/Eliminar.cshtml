@@ -1,0 +1,29 @@
+﻿@model SistemaVentas.Dominio.Modelos.Cliente
+
+<h1>Eliminar Cliente</h1>
+
+<h3>¿Está seguro que desea eliminar este cliente?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Nombre
+        </dd>
+        <dt class="col-sm-2">
+            Apellidos
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Apellidos
+        </dd>
+    </dl>
+
+    <form asp-action="Eliminar">
+        <input type="hidden" asp-for="IdCliente" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

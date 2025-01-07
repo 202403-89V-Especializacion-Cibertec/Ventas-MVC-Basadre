@@ -1,0 +1,56 @@
+﻿@page "/actualizar-cliente/{id:int}"
+@using Microsoft.AspNetCore.Components.Forms
+@using SistemaVentas.Dominio.Modelos
+@using SistemaVentas.Servicios
+@inject ClienteService ClienteService
+@inject NavigationManager Navigation
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Cliente cliente = new Cliente();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cliente = await ClienteService.ObtenerPorId(id);
+    }
+
+    private async Task ActualizarClienteHandler()
+    {
+        await ClienteService.Actualizar(cliente);
+        Navigation.NavigateTo("/clientes");
+    }
+}
+
+<h3>Actualizar Cliente</h3>
+
+<EditForm Model="cliente" OnValidSubmit="ActualizarClienteHandler">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Nombre:</label>
+        <InputText @bind-Value="cliente.Nombre" />
+    </div>
+    <div>
+        <label>Apellidos:</label>
+        <InputText @bind-Value="cliente.Apellidos" />
+    </div>
+    <div>
+        <label>Dirección:</label>
+        <InputText @bind-Value="cliente.Direccion" />
+    </div>
+    <div>
+        <label>Ciudad:</label>
+        <InputText @bind-Value="cliente.Ciudad" />
+    </div>
+    <div>
+        <label>Fecha de Nacimiento:</label>
+        <InputDate @bind-Value="cliente.FechaNacimiento" />
+    </div>
+    <div>
+        <label>Activo:</label>
+        <InputCheckbox @bind-Value="cliente.Activo" />
+    </div>
+    <button type="submit">Actualizar</button>
+</EditForm>

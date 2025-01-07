@@ -1,0 +1,49 @@
+﻿@page "/crear-cliente"
+@using Microsoft.AspNetCore.Components.Forms
+@using SistemaVentas.Dominio.Modelos
+@using SistemaVentas.Servicios
+@inject ClienteService ClienteService
+@inject NavigationManager Navigation
+
+<h3>Crear Cliente</h3>
+
+<EditForm Model="nuevoCliente" OnValidSubmit="CrearNuevoCliente">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Nombre:</label>
+        <InputText @bind-Value="nuevoCliente.Nombre" />
+    </div>
+    <div>
+        <label>Apellidos:</label>
+        <InputText @bind-Value="nuevoCliente.Apellidos" />
+    </div>
+    <div>
+        <label>Dirección:</label>
+        <InputText @bind-Value="nuevoCliente.Direccion" />
+    </div>
+    <div>
+        <label>Ciudad:</label>
+        <InputText @bind-Value="nuevoCliente.Ciudad" />
+    </div>
+    <div>
+        <label>Fecha de Nacimiento:</label>
+        <InputDate @bind-Value="nuevoCliente.FechaNacimiento" />
+    </div>
+    <div>
+        <label>Activo:</label>
+        <InputCheckbox @bind-Value="nuevoCliente.Activo" />
+    </div>
+    <button type="submit">Crear</button>
+</EditForm>
+
+@code {
+    private Cliente nuevoCliente = new Cliente();
+
+    private async Task CrearNuevoCliente()
+    {
+        await ClienteService.Crear(nuevoCliente);
+        Navigation.NavigateTo("/clientes");
+    }
+}

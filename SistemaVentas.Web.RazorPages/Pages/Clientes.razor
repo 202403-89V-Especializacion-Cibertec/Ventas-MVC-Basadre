@@ -1,0 +1,56 @@
+﻿@page "/clientes"
+@using SistemaVentas.Dominio.Modelos
+@using SistemaVentas.Servicios
+@inject ClienteService ClienteService
+
+<h3>Clientes</h3>
+
+<input @bind="nombreFiltro" placeholder="Buscar por nombre" />
+<button @onclick="ConsultarClientes">Buscar</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in clientes)
+        {
+            <tr>
+                <td>@cliente.IdCliente</td>
+                <td>@cliente.Nombre</td>
+                <td>@cliente.Apellidos</td>
+                <td>
+                    <button @onclick="() => EliminarCliente(cliente.IdCliente)">Eliminar</button>
+                    <a href="/actualizar-cliente/@cliente.IdCliente">Actualizar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private string nombreFiltro;
+    private IEnumerable<Cliente> clientes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clientes = await ClienteService.Consultar(null);
+    }
+
+    private async Task ConsultarClientes()
+    {
+        clientes = await ClienteService.Consultar(nombreFiltro);
+    }
+
+    private async Task EliminarCliente(int id)
+    {
+        await ClienteService.Eliminar(id);
+        clientes = await ClienteService.Consultar(nombreFiltro);
+    }
+}
+
